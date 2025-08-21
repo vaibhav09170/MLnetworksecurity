@@ -3,6 +3,8 @@ import sys
 import numpy as np
 import pandas as pd
 import mlflow
+import dagshub
+
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import r2_score
@@ -21,6 +23,11 @@ from networksecurity.utils.main_utils.utils import save_object,load_object
 from networksecurity.utils.main_utils.utils import load_numpy_array_data,evaluate_models
 from networksecurity.utils.ml_utils.metric.classification_metric import get_classification_score
 from networksecurity.utils.ml_utils.model.estimator import NetworkModel
+
+
+
+#dagshub.init(repo_owner='vaibhav09170', repo_name='MLnetworksecurity', mlflow=True)
+
 
 class ModelTrainer:
     def __init__(self,model_trainer_config:ModelTrainerConfig, data_transformation_artifact : DataTransformationArtifact):
@@ -108,6 +115,7 @@ class ModelTrainer:
             
             Network_Model=NetworkModel(preprocessor=preprocessor,model = best_model)
             save_object(self.model_trainer_config.trained_model_file_path,obj=NetworkModel)
+            save_object("final_model/model.pkl",best_model)
             
             model_trainer_artifact=ModelTrainerArtifact(
                                 trained_model_file_path=self.model_trainer_config.trained_model_file_path,
