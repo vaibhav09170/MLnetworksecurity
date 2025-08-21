@@ -39,6 +39,7 @@ if __name__ == "__main__":
         model_trainer_config_obj = ModelTrainerConfig(training_pipeline_config_obj)
         model_trainer=ModelTrainer(model_trainer_config=model_trainer_config_obj,data_transformation_artifact=data_transformation_artifact)
         model_trainer_artifact=model_trainer.initiate_model_trainer()
+        print(f"\n\n {model_trainer_artifact}")
         logging.info("Model Training artifact created")
         
     except Exception as e:
